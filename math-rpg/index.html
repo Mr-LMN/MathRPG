@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Math‑RPG • Chapter 1</title>
+  <link rel="stylesheet" href="./public/styles/main.css">
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <img src="./public/assets/images/logo.svg" alt="" class="logo" aria-hidden="true">
+    <h1 id="game-title">Math‑RPG</h1>
+    <div class="toggles">
+      <button id="tts-toggle" aria-pressed="true" title="Toggle narration (T)">🔊 Narration</button>
+      <button id="hc-toggle" aria-pressed="false" title="Toggle high contrast (H)">🌓 High contrast</button>
+    </div>
+  </header>
+
+  <main id="app" class="app" role="main">
+    <section id="screen" class="screen" aria-live="polite" aria-atomic="true"></section>
+    <nav class="controls" aria-label="Game controls">
+      <button id="next-btn" class="primary">Continue ▸</button>
+      <button id="restart-btn" class="secondary">Restart</button>
+    </nav>
+  </main>
+
+  <footer class="app-footer">
+    <p><kbd>Enter</kbd>/<kbd>Space</kbd> continue • <kbd>1‑4</kbd> answer • <kbd>T</kbd> narration • <kbd>H</kbd> high contrast</p>
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
