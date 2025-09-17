@@ -1,4 +1,4 @@
-import { renderNarrative, renderChoices, setFeedback } from './ui/ui.js';
+import { renderNarrative, renderChoices, setFeedback } from '../ui/ui.js';
 import { speak, narrationEnabled } from '../tts.js';
 import { oxygenPuzzle } from './puzzles/oxygen.js';
 
@@ -31,7 +31,10 @@ export class Engine{
   current(){ return this.chapter.steps[this.stepIndex]; }
 
   restart(){
-    this.stepIndex = 0; this.score = 0; this.render();
+    this.stepIndex = 0;
+    this.score = 0;
+    this.locked = false;
+    this.render();
   }
 
   advance(){
@@ -76,10 +79,17 @@ export class Engine{
           const correct = step.choices[i]?.correct === true;
           if(correct){
             this.score++;
-            setFeedback(step.choices[i].feedback || 'Correct!', true);
+            setFeedback({
+              container,
+              message: step.choices[i].feedback || 'Correct!',
+              good: true
+            });
             if(narrationEnabled()) speak('Correct');
           }else{
-            setFeedback(step.choices[i].feedback || 'Try again.');
+            setFeedback({
+              container,
+              message: step.choices[i].feedback || 'Try again.'
+            });
             if(narrationEnabled()) speak('That is not correct.');
             return; // stay on question
           }

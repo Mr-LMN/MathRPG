@@ -22,9 +22,9 @@ export function renderChoices({container, question, choices}){
   `;
 }
 
-export function setFeedback(msg, good=false){
-  const f = document.getElementById('feedback');
-  if(!f) return;
-  f.textContent = msg;
-  f.className = `feedback ${good ? 'good':'bad'}`;
+export function setFeedback({container, message, good=false}){
+  const region = container?.querySelector('#feedback');
+  if(!region) return;
+  region.textContent = message;
+  region.className = `feedback ${good ? 'good':'bad'}`;
 }

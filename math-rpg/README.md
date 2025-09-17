@@ -27,12 +27,14 @@ math-rpg/
    ├─ game/
    │  ├─ engine.js
    │  ├─ puzzles/oxygen.js
-   │  └─ chapters/chapter1.json
+   │  └─ chapters/
+   │     ├─ chapter1.js
+   │     └─ index.js
    ├─ tts.js
    └─ main.js
 ```
 
 ## Notes
-- You can add new chapters as JSON under `src/game/chapters` and list them in `main.js`.
+- You can add new chapters as ES modules under `src/game/chapters` and register them in `chapters/index.js` (which exposes `getChapter` and `chapterIds`).
 - Puzzles can be added under `src/game/puzzles` and referenced by an `id` inside a chapter step of type `"puzzle"`.
 - Styling lives in `public/styles/main.css`. Brand colours and fonts at the top.
