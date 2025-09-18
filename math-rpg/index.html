@@ -8,16 +8,34 @@
 </head>
 <body>
   <header class="app-header" role="banner">
-    <img src="./public/assets/images/logo.svg" alt="" class="logo" aria-hidden="true">
-    <h1 id="game-title">Math‑RPG</h1>
-    <div class="toggles">
+    <div class="brand">
+      <img src="./public/assets/images/logo.svg" alt="Pencoedtre High School crest" class="logo">
+      <div class="brand-copy">
+        <h1 id="game-title">Pencoedtre Numeracy Quest</h1>
+        <p class="tagline">Flooded Ruins training mission</p>
+      </div>
+    </div>
+    <div class="toggles" role="group" aria-label="Game options">
+      <div class="stage-toggle">
+        <label for="stage-select">Key Stage</label>
+        <p id="stage-desc" class="sr-only">Switch between Key Stage 3 and Key Stage 4 questions.</p>
+        <select id="stage-select" aria-describedby="stage-desc">
+          <option value="ks3">KS3 Explorer</option>
+          <option value="ks4">KS4 Vanguard</option>
+        </select>
+      </div>
       <button id="tts-toggle" aria-pressed="true" title="Toggle narration (T)">🔊 Narration</button>
       <button id="hc-toggle" aria-pressed="false" title="Toggle high contrast (H)">🌓 High contrast</button>
     </div>
   </header>
 
   <main id="app" class="app" role="main">
-    <section id="screen" class="screen" aria-live="polite" aria-atomic="true"></section>
+    <section id="screen" class="screen" aria-live="polite" aria-atomic="true" tabindex="-1"></section>
+    <div class="hud" aria-live="polite" aria-atomic="true">
+      <span id="mode-badge" class="badge">Key Stage 3 Explorer</span>
+      <span id="progress-badge" class="badge">Scene 1 of 9</span>
+      <span id="score-badge" class="badge">Score 0 / 0</span>
+    </div>
     <nav class="controls" aria-label="Game controls">
       <button id="next-btn" class="primary">Continue ▸</button>
       <button id="restart-btn" class="secondary">Restart</button>
@@ -25,7 +43,7 @@
   </main>
 
   <footer class="app-footer">
-    <p><kbd>Enter</kbd>/<kbd>Space</kbd> continue • <kbd>1‑4</kbd> answer • <kbd>T</kbd> narration • <kbd>H</kbd> high contrast</p>
+    <p><kbd>Enter</kbd>/<kbd>Space</kbd> continue • <kbd>1‑4</kbd> answer • <kbd>T</kbd> narration • <kbd>H</kbd> high contrast • Key Stage select for KS3/KS4</p>
   </footer>
 
   <script type="module" src="./src/main.js"></script>

@@ -22,12 +22,13 @@ export function quickfirePuzzle({ container, onSolved }) {
   let index = 0;
 
   container.innerHTML = `
-    <p class="prompt">Emergency sirens echo. You have seconds to stabilise the waterworks.</p>
+    <p class="prompt" role="heading" aria-level="2">Emergency sirens echo. You have seconds to stabilise the waterworks.</p>
     <p class="meta">Quickfire round: answer each calculation to seal the valves. There are ${tasks.length} tasks.</p>
     <p id="q-status" class="meta" aria-live="polite"></p>
+    <p id="quickfire-instructions" class="sr-only">Type the answer, then press the lock in button or Enter to submit.</p>
     <label class="quickfire-question">
       <span id="q-text"></span>
-      <input id="q-input" type="number" inputmode="numeric" class="answer" aria-label="Enter your answer">
+      <input id="q-input" type="number" inputmode="numeric" class="answer" aria-label="Enter your answer" aria-describedby="quickfire-instructions">
     </label>
     <div class="controls" style="margin-top:10px">
       <button id="q-submit" class="primary">Lock In</button>

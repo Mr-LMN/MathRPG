@@ -2,11 +2,12 @@ import { speak, narrationEnabled } from '../../tts.js';
 
 export function treasureChestPuzzle({ container, onSolved }) {
   container.innerHTML = `
-    <p class="prompt">The chest hums with tidal glyphs. Three brass dials labelled Tide, Current, and Anchor glow with faint numbers.</p>
+    <p class="prompt" role="heading" aria-level="2">The chest hums with tidal glyphs. Three brass dials labelled Tide, Current, and Anchor glow with faint numbers.</p>
     <p class="meta">Etched beside them: "Anchor equals the number of seasons in a year. Tide is three times Anchor. Current is Tide minus Anchor. Enter the four-digit code as Anchor, Tide, then Current."</p>
+    <p id="chest-instructions" class="sr-only">Enter all four digits together, then press the open chest button or Enter.</p>
     <label>
       Enter the code:
-      <input id="chest-code" type="number" inputmode="numeric" class="answer" aria-label="Enter the treasure code">
+      <input id="chest-code" type="number" inputmode="numeric" class="answer" aria-label="Enter the treasure code" aria-describedby="chest-instructions">
     </label>
     <div class="controls" style="margin-top:10px">
       <button id="chest-check" class="primary">Open Chest</button>

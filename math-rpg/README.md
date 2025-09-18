@@ -5,8 +5,9 @@ Self‑contained, vanilla JS project to prototype your Math‑RPG. No build tool
 ## What’s here
 - **Separated structure** for easy expansion (chapters, puzzles, UI, a11y).
 - **Narration + TTS** (toggleable).
-- **Chapter 1**: short intro + 3 starter challenges (fight, lock, oxygen puzzle).
-- **Accessible**: keyboard friendly, large type, ARIA live regions, high‑contrast mode.
+- **Key Stage toggle** at the top of the screen instantly swaps KS3 / KS4 question sets and updates the HUD.
+- **Chapter 1**: refreshed story flow + 3 starter challenges (fight, lock, oxygen puzzle) with a live score tracker.
+- **Accessible**: keyboard friendly, large type, ARIA live regions, high‑contrast mode, screen‑reader hints.
 
 ## Run
 1. Download and unzip.

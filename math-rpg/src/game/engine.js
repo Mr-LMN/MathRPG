@@ -5,16 +5,19 @@ import { quickfirePuzzle } from './puzzles/quickfire.js';
 import { treasureChestPuzzle } from './puzzles/treasureChest.js';
 
 export class Engine{
-  constructor({screen, nextBtn, restartBtn, chapter}){
+  constructor({screen, nextBtn, restartBtn, chapter, scoreEl, progressEl}){
     this.screen = screen;
     this.nextBtn = nextBtn;
     this.restartBtn = restartBtn;
-    this.chapter = chapter;
+    this.chapter = null;
     this.stepIndex = 0;
     this.score = 0;
     this.locked = false;
+    this.scoreEl = scoreEl;
+    this.progressEl = progressEl;
+    this.totalChallenges = 0;
     this.handlers();
-    this.render();
+    this.setChapter(chapter);
   }
 
   handlers(){
@@ -30,12 +33,47 @@ export class Engine{
     });
   }
 
+  setChapter(chapter){
+    if(!chapter) return;
+    this.chapter = chapter;
+    this.totalChallenges = this.countChallenges(chapter);
+    this.restart();
+  }
+
+  countChallenges(chapter){
+    if(!chapter) return 0;
+    return chapter.steps.filter(s=>s.type?.startsWith('q') || s.type==='puzzle').length;
+  }
+
+  stageLabel(){
+    const stage = this.chapter?.stage;
+    if(stage === 'ks4') return 'Key Stage 4 Vanguard';
+    return 'Key Stage 3 Explorer';
+  }
+
+  updateHud({final=false}={}){
+    if(this.progressEl && this.chapter){
+      const total = this.chapter.steps.length;
+      const stepNumber = final ? total : Math.min(this.stepIndex + 1, total);
+      this.progressEl.textContent = `Scene ${stepNumber} of ${total}`;
+    }
+    if(this.scoreEl){
+      this.scoreEl.textContent = `Score ${this.score} / ${this.totalChallenges}`;
+    }
+  }
+
+  focusScreen(){
+    if(!this.screen) return;
+    setTimeout(()=> this.screen.focus(), 30);
+  }
+
   current(){ return this.chapter.steps[this.stepIndex]; }
 
   restart(){
     this.stepIndex = 0;
     this.score = 0;
     this.locked = false;
+    this.updateHud();
     this.render();
   }
 
@@ -55,17 +93,21 @@ export class Engine{
   end(){
     const container = this.screen;
     const total = this.chapter.steps.filter(s=>s.type?.startsWith('q') || s.type==='puzzle').length;
-    const msg = `Chapter complete. Score ${this.score}/${total}.`;
-    renderNarrative({container, text: msg, meta: 'Press Restart to play again.'});
+    const msg = `Mission complete, ${this.stageLabel()}! Score ${this.score}/${total}.`;
+    renderNarrative({container, text: msg, meta: 'Press Restart to play again or switch Key Stage for a new challenge.'});
+    this.updateHud({final:true});
+    this.focusScreen();
   }
 
   render(){
     const container = this.screen;
     const step = this.current();
     if(!step) return;
+    this.updateHud();
 
     if(step.type==='narrative'){
       renderNarrative({container, text: step.text, meta: step.meta});
+      this.focusScreen();
       return;
     }
 
@@ -73,7 +115,8 @@ export class Engine{
       renderChoices({
         container,
         question: step.question,
-        choices: step.choices
+        choices: step.choices,
+        helpText: step.meta
       });
       container.querySelectorAll('.choice').forEach(btn=>{
         btn.addEventListener('click', ()=>{
@@ -81,6 +124,7 @@ export class Engine{
           const correct = step.choices[i]?.correct === true;
           if(correct){
             this.score++;
+            this.updateHud();
             setFeedback({
               container,
               message: step.choices[i].feedback || 'Correct!',
@@ -99,39 +143,52 @@ export class Engine{
           this.locked = true;
           setTimeout(()=>{
             this.locked = false;
-            this.stepIndex++; 
+            this.stepIndex++;
             if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
           }, 600);
         });
       });
+      this.focusScreen();
       return;
     }
 
     if(step.type==='puzzle'){
       if(step.id==='oxygen'){
         oxygenPuzzle({container, onSolved:(ok)=>{
-          if(ok) this.score++;
+          if(ok){
+            this.score++;
+            this.updateHud();
+          }
           this.stepIndex++;
           if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
         }});
+        this.focusScreen();
         return;
       }
 
       if(step.id==='quickfire'){
         quickfirePuzzle({container, onSolved:(ok)=>{
-          if(ok) this.score++;
+          if(ok){
+            this.score++;
+            this.updateHud();
+          }
           this.stepIndex++;
           if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
         }});
+        this.focusScreen();
         return;
       }
 
       if(step.id==='treasure-chest'){
         treasureChestPuzzle({container, onSolved:(ok)=>{
-          if(ok) this.score++;
+          if(ok){
+            this.score++;
+            this.updateHud();
+          }
           this.stepIndex++;
           if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
         }});
+        this.focusScreen();
         return;
       }
     }
