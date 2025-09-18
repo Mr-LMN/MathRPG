@@ -24,7 +24,16 @@ export const chapter1 = {
     },
     {
       type: 'narrative',
-      text: 'The beast withers. A rusted door stands ahead with a number pad.',
+      text: 'The beast withers. Water sirens flash as the tunnel starts flooding faster around you.',
+      meta: 'Stabilise the valves before the corridor fills.'
+    },
+    {
+      type: 'puzzle',
+      id: 'quickfire'
+    },
+    {
+      type: 'narrative',
+      text: 'With the pressure settled, a rusted door stands ahead with a number pad.',
       meta: 'Crack the lock.'
     },
     {
@@ -39,7 +48,16 @@ export const chapter1 = {
     },
     {
       type: 'narrative',
-      text: 'Beyond the door, a submerged tunnel gurgles. You find an oxygen tank from an earlier skirmish.',
+      text: 'Inside the chamber a barnacled treasure chest pulses with blue light.',
+      meta: 'The glyphs promise a cosmetic badge for the right code.'
+    },
+    {
+      type: 'puzzle',
+      id: 'treasure-chest'
+    },
+    {
+      type: 'narrative',
+      text: 'Whether the chest rewards you or explodes in spray, you press deeper into the ruins. A submerged tunnel gurgles nearby and an oxygen tank lies within reach.',
       meta: 'Time your swim.'
     },
     {

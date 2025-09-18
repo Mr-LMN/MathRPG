@@ -1,6 +1,8 @@
 import { renderNarrative, renderChoices, setFeedback } from '../ui/ui.js';
 import { speak, narrationEnabled } from '../tts.js';
 import { oxygenPuzzle } from './puzzles/oxygen.js';
+import { quickfirePuzzle } from './puzzles/quickfire.js';
+import { treasureChestPuzzle } from './puzzles/treasureChest.js';
 
 export class Engine{
   constructor({screen, nextBtn, restartBtn, chapter}){
@@ -105,13 +107,33 @@ export class Engine{
       return;
     }
 
-    if(step.type==='puzzle' && step.id==='oxygen'){
-      oxygenPuzzle({container, onSolved:(ok)=>{
-        if(ok) this.score++;
-        this.stepIndex++;
-        if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
-      }});
-      return;
+    if(step.type==='puzzle'){
+      if(step.id==='oxygen'){
+        oxygenPuzzle({container, onSolved:(ok)=>{
+          if(ok) this.score++;
+          this.stepIndex++;
+          if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
+        }});
+        return;
+      }
+
+      if(step.id==='quickfire'){
+        quickfirePuzzle({container, onSolved:(ok)=>{
+          if(ok) this.score++;
+          this.stepIndex++;
+          if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
+        }});
+        return;
+      }
+
+      if(step.id==='treasure-chest'){
+        treasureChestPuzzle({container, onSolved:(ok)=>{
+          if(ok) this.score++;
+          this.stepIndex++;
+          if(this.stepIndex >= this.chapter.steps.length) this.end(); else this.render();
+        }});
+        return;
+      }
     }
   }
 }
