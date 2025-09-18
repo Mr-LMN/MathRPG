@@ -10,9 +10,16 @@ Self‑contained, vanilla JS project to prototype your Math‑RPG. No build tool
 - **Accessible**: keyboard friendly, large type, ARIA live regions, high‑contrast mode, screen‑reader hints.
 
 ## Run
-1. Download and unzip.
-2. Open `index.html` (double‑click) in Chrome/Edge.
-3. Use **Space/Enter** to advance; **1‑4** to answer MCQs. `T` toggles narration, `H` toggles high contrast.
+### Dev server (recommended)
+1. Install dependencies: `npm install`
+2. Start the Vite dev server: `npm run dev`
+3. Open the printed local URL in your browser.
+
+### Static preview
+You can still open `index.html` directly in a modern browser if you prefer a no-build-tool workflow.
+
+### Controls
+Use **Space/Enter** to advance; **1‑4** to answer MCQs. `T` toggles narration, `H` toggles high contrast.
 
 ## Structure
 ```
