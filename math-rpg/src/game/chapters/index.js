@@ -1,15 +1,15 @@
-import chapter1 from './chapter1.js';
+import { buildChapter1 } from './chapter1.js';
 
 const chapters = Object.freeze({
-  [chapter1.id]: chapter1
+  chapter1: buildChapter1
 });
 
 export const chapterIds = Object.freeze(Object.keys(chapters));
 
-export function getChapter(name){
-  const chapter = chapters[name];
-  if(!chapter){
+export function getChapter(name, options={}){
+  const builder = chapters[name];
+  if(!builder){
     throw new Error(`Chapter "${name}" not found`);
   }
-  return chapter;
+  return builder(options);
 }
